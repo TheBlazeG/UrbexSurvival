@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerSight : MonoBehaviour
 {
-    [SerializeField]GameObject mouse;
 
     Player inputActions;
     private void Awake()
@@ -24,12 +23,13 @@ public class PlayerSight : MonoBehaviour
 
     void Update()
     {
-        mouse.transform.position = inputActions.MouseAndKeyboard.Look.ReadValue<Vector2>();
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(inputActions.MouseAndKeyboard.Look.ReadValue<Vector2>());
+        LookAtMouse(mousePosition);
     }
 
     void LookAtMouse(Vector3 target) 
     {
-        float lookAngle = AngleBetweenTwoPoints(transform.position, target);
+        float lookAngle = AngleBetweenTwoPoints(transform.position, target)+90;
 
         
         transform.eulerAngles = new Vector3(0,0,lookAngle);
