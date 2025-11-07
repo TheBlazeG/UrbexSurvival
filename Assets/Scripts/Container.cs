@@ -4,39 +4,45 @@ public class Container : MonoBehaviour,Interactable
 {
     bool empty = false;
     public Item itemContained;
-    Sprite openContainer;
+    public Sprite openContainer;
 
     public void Interact(PlayerMovement p)
     {
         if (empty== false)
         {
-            foreach (Item item in p.playerInventory.inventory)
+            for (int i = 0; i < p.playerInventory.inventory.Count; i++)
             {
-                if (item==null)
+
+            
+            
+                if (p.playerInventory.inventory[i] ==null)
                 {
-                    EmptyContainer(item);
+                    p.playerInventory.inventory[i] = itemContained;
                     p.playerInventory.UpdateInventoryUI();
+                    EmptyContainer();
+                    p.uiText = "you got a" + itemContained.name;
+                    StartCoroutine( p.SetUIText());
                     return;
                 }
             }
-            SwapItem(p.playerInventory.inventory[p.playerInventory.currentItem]);
+            Item t = p.playerInventory.inventory[p.playerInventory.currentItem];
+            p.uiText="you swapped"+t.name+" for " + itemContained.name;
+           StartCoroutine( p.SetUIText());
+            p.playerInventory.inventory[p.playerInventory.currentItem] = itemContained;
+        itemContained = t;
         }
         
     }
 
-   void EmptyContainer(Item slot) 
+   void EmptyContainer() 
     {
-        slot = itemContained;
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = openContainer;
         empty = true;
     }
 
-    void SwapItem(Item item) 
-    { 
-    Item t = itemContained;
-        itemContained = item;
-        item =t;
     
-    }
+     
+    
+    
 }

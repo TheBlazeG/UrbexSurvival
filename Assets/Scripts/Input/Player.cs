@@ -144,6 +144,15 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""UseItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""442662ad-2fbc-4b5e-bf1d-7c729056a393"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -256,6 +265,17 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""action"": ""InventorySlot3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61628297-a855-4dbf-8857-0be7ee065c6d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -270,6 +290,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_MouseAndKeyboard_InventorySlot1 = m_MouseAndKeyboard.FindAction("InventorySlot1", throwIfNotFound: true);
         m_MouseAndKeyboard_InventorySlot2 = m_MouseAndKeyboard.FindAction("InventorySlot2", throwIfNotFound: true);
         m_MouseAndKeyboard_InventorySlot3 = m_MouseAndKeyboard.FindAction("InventorySlot3", throwIfNotFound: true);
+        m_MouseAndKeyboard_UseItem = m_MouseAndKeyboard.FindAction("UseItem", throwIfNotFound: true);
     }
 
     ~@Player()
@@ -356,6 +377,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_MouseAndKeyboard_InventorySlot1;
     private readonly InputAction m_MouseAndKeyboard_InventorySlot2;
     private readonly InputAction m_MouseAndKeyboard_InventorySlot3;
+    private readonly InputAction m_MouseAndKeyboard_UseItem;
     /// <summary>
     /// Provides access to input actions defined in input action map "MouseAndKeyboard".
     /// </summary>
@@ -391,6 +413,10 @@ public partial class @Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "MouseAndKeyboard/InventorySlot3".
         /// </summary>
         public InputAction @InventorySlot3 => m_Wrapper.m_MouseAndKeyboard_InventorySlot3;
+        /// <summary>
+        /// Provides access to the underlying input action "MouseAndKeyboard/UseItem".
+        /// </summary>
+        public InputAction @UseItem => m_Wrapper.m_MouseAndKeyboard_UseItem;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -435,6 +461,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @InventorySlot3.started += instance.OnInventorySlot3;
             @InventorySlot3.performed += instance.OnInventorySlot3;
             @InventorySlot3.canceled += instance.OnInventorySlot3;
+            @UseItem.started += instance.OnUseItem;
+            @UseItem.performed += instance.OnUseItem;
+            @UseItem.canceled += instance.OnUseItem;
         }
 
         /// <summary>
@@ -464,6 +493,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @InventorySlot3.started -= instance.OnInventorySlot3;
             @InventorySlot3.performed -= instance.OnInventorySlot3;
             @InventorySlot3.canceled -= instance.OnInventorySlot3;
+            @UseItem.started -= instance.OnUseItem;
+            @UseItem.performed -= instance.OnUseItem;
+            @UseItem.canceled -= instance.OnUseItem;
         }
 
         /// <summary>
@@ -546,5 +578,12 @@ public partial class @Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInventorySlot3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "UseItem" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnUseItem(InputAction.CallbackContext context);
     }
 }
